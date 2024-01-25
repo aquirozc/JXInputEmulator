@@ -53,11 +53,11 @@ public class VirtualController{
 	}
 	
 	public void setLeftTrigger(float value) {
-		report.bLeftTrigger = value;
+		//report.bLeftTrigger = value;
 	}
 	
 	public void setRightTrigger(float value) {
-		report.bRightTrigger = value;
+		//report.bRightTrigger = value;
 	}
 	
 	public void setLeftJoystick(int x, int y) {

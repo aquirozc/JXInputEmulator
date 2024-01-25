@@ -5,20 +5,38 @@ package com.aquirozc.jxinputemulator;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Iterator;
+import com.sun.jna.Native;
 
 class LibraryTest {
-    @Test void someLibraryMethodReturnsTrue() {
-        Library classUnderTest = new Library();
-        
-        try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        assertTrue(true, "someLibraryMethod should return 'true'");
+
+    @SuppressWarnings("deprecation")
+    @Test void someLibraryMethodReturnsTrue() throws Exception {
+
+        System.setProperty("jna.library.path","C:/Users/Magdalena Carmona/Downloads");
+
+        ViGEmClient client = (ViGEmClient) Native.loadLibrary("ViGEmClient.dll", ViGEmClient.class);
+
+        VirtualController controller = new VirtualController(client);
+
+        System.out.println(controller.getVID());
+
+        while(true){
+
+            for (XUSBButton b : XUSBButton.values()){
+
+                if(b.flag != XUSBButton.XUSB_GAMEPAD_GUIDE.flag){
+                    controller.pressButton(b.flag);
+                    controller.update();
+                    Thread.sleep(1000);
+                    controller.releaseButton(b.flag);
+                    controller.update();
+                }
+
+            }
+
+        }
+      
+        //assertNotNull(controller);
+      
     }
 }

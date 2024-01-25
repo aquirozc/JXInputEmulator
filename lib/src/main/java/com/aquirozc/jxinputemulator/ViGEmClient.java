@@ -4,7 +4,7 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.win32.StdCallLibrary;
 
-public interface ViGEmClient{
+public interface ViGEmClient extends StdCallLibrary{
 	
 	Pointer vigem_alloc();
     void vigem_free(Pointer vigem);
