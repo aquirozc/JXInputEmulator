@@ -16,9 +16,9 @@ class LibraryTest {
 
         ViGEmClient client = (ViGEmClient) Native.loadLibrary("ViGEmClient.dll", ViGEmClient.class);
 
-        VirtualController controller = new VirtualController(client);
+        VirtualXUSB controller = new VirtualXUSB(client);
 
-        System.out.println(controller.getVID());
+        System.out.println(controller.getVendorID());
 
         while(true){
 

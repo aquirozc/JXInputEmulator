@@ -15,9 +15,9 @@ public class XUSBReport extends Structure{
     public int sThumbRY = 0;
 
     @Override
-        protected List getFieldOrder() {
-            return Arrays.asList("wButtons", "bLeftTrigger", "bRightTrigger", "sThumbLX", "sThumbLY", "sThumbRX", "sThumbRY");
-        }
+    protected List<String> getFieldOrder() {
+        return Arrays.asList("wButtons", "bLeftTrigger", "bRightTrigger", "sThumbLX", "sThumbLY", "sThumbRX", "sThumbRY");
+    }
 
     public static class ByReference extends XUSBReport implements Structure.ByReference {}
 
