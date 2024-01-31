@@ -28,7 +28,7 @@ public interface ViGEmClient extends StdCallLibrary{
     void vigem_target_x360_unregister_notification(Pointer target);
     
     interface Callback extends StdCallLibrary.StdCallCallback {
-        void invoke(Pointer target, int notify, Pointer userData);
+        void invoke(Pointer target, Pointer client, int largeMotor, int smallMotor, int ledNumber, Pointer userData);
     }
     
 }

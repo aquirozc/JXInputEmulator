@@ -1,5 +1,6 @@
 package com.aquirozc.jxinputemulator;
 
+import com.aquirozc.jxinputemulator.ViGEmClient.Callback;
 import com.sun.jna.Pointer;
 
 public class VirtualXUSB extends VirtualController implements AutoCloseable{
@@ -126,6 +127,14 @@ public class VirtualXUSB extends VirtualController implements AutoCloseable{
 	
 	public void update() {
 		client.vigem_target_x360_update(bus,device,report);
+	}
+	
+	public void registerNotification(ViGEmClient.Callback callback) {
+		client.vigem_target_x360_register_notification(bus, device, callback, null);
+	}
+	
+	public void unregisterNotification() {
+		client.vigem_target_x360_unregister_notification(device);
 	}
 	
 	/*
