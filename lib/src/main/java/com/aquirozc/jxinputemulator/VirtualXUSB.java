@@ -1,6 +1,5 @@
 package com.aquirozc.jxinputemulator;
 
-import com.aquirozc.jxinputemulator.ViGEmClient.Callback;
 import com.sun.jna.Pointer;
 
 public class VirtualXUSB extends VirtualController implements AutoCloseable{
@@ -45,7 +44,7 @@ public class VirtualXUSB extends VirtualController implements AutoCloseable{
 	}
 	
 	/*
-	 * Sets the values of the left trigger
+	 * Sets the value of the left trigger
      * @param Integer between 0 and 255 (0 = trigger released)
 	 */
 	
@@ -59,7 +58,7 @@ public class VirtualXUSB extends VirtualController implements AutoCloseable{
 	}
 	
 	/*
-	 * Sets the values of the right trigger
+	 * Sets the value of the right trigger
      * @param Integer between 0 and 255 (0 = trigger released)
 	 */
 	
@@ -73,7 +72,7 @@ public class VirtualXUSB extends VirtualController implements AutoCloseable{
 	}
 	
 	/*
-	 * Sets the values of the left trigger as a percentage
+	 * Sets the value of the left trigger as a percentage
      * @param Float between 0 and 1 (0 = trigger released)
 	 */
 	
@@ -87,7 +86,7 @@ public class VirtualXUSB extends VirtualController implements AutoCloseable{
 	}
 	
 	/*
-	 * Sets the values of the right trigger as a percentage
+	 * Sets the value of the right trigger as a percentage
      * @param Float between 0 and 1 (0 = trigger released)
 	 */
 	
@@ -121,6 +120,46 @@ public class VirtualXUSB extends VirtualController implements AutoCloseable{
 	}
 	
 	/*
+	 * Sets the values of the X and Y axis for the left joystick as percentages
+     * @param Float between -1.0 and 1.0 (0 = neutral position)
+     * @param Float between -1.0 and 1.0 (0 = neutral position)
+	 */
+	
+	public void setLeftJoystick(float x, float y) {
+		
+		if(x< -1 || x > 1) {
+			throw new IllegalArgumentException("X value must be an integer between -1 and 1. But was " + x);
+		}
+		
+		if(y< -1 || y > 1) {
+			throw new IllegalArgumentException("Y value must be an integer between -1 and 1. But was " + y);
+		}
+		
+		report.sThumbLX = Math.round(x * Short.MAX_VALUE);
+		report.sThumbLY = Math.round(y * Short.MAX_VALUE);
+	}
+	
+	/*
+	 * Sets the values of the X and Y axis for the right joystick as percentages
+     * @param Float between -1.0 and 1.0 (0 = neutral position)
+     * @param Float between -1.0 and 1.0 (0 = neutral position)
+	 */
+	
+	public void setLRightJoystick(float x, float y) {
+		
+		if(x< -1 || x > 1) {
+			throw new IllegalArgumentException("X value must be an integer between -1 and 1. But was " + x);
+		}
+		
+		if(y< -1 || y > 1) {
+			throw new IllegalArgumentException("Y value must be an integer between -1 and 1. But was " + y);
+		}
+		
+		report.sThumbRX = Math.round(x * Short.MAX_VALUE);
+		report.sThumbRY = Math.round(y * Short.MAX_VALUE);
+	}
+	
+	/*
 	 * Sends the current state of the report to the Virtual Controller,
 	 * generating the desired inputs into the target system.
 	 */
@@ -129,9 +168,18 @@ public class VirtualXUSB extends VirtualController implements AutoCloseable{
 		client.vigem_target_x360_update(bus,device,report);
 	}
 	
+	/*
+	 * Registers a callback function that can handle force feedback, leds, etc.
+	 * @param ViGEmClient.Callback handler
+	 */
+	
 	public void registerNotification(ViGEmClient.Callback callback) {
 		client.vigem_target_x360_register_notification(bus, device, callback, null);
 	}
+	
+	/*
+	 * Unregisters a previously registered callback function.
+	 */
 	
 	public void unregisterNotification() {
 		client.vigem_target_x360_unregister_notification(device);
