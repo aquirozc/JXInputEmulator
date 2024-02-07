@@ -20,12 +20,16 @@ public interface ViGEmClient extends StdCallLibrary{
     short vigem_target_get_vid(Pointer target);
     short vigem_target_get_pid(Pointer target);
     int vigem_target_x360_update(Pointer vigem, Pointer target, XUSBReport report);
+    int vigem_target_ds4_update(Pointer vigem, Pointer target, DS4BasicReport report);
+    //int vigem_target_ds4_update_ex_ptr(Pointer vigem, Pointer target, DS4ExtendedReport report);
     long vigem_target_get_index(Pointer target);
     int vigem_target_get_type(Pointer target);
     boolean vigem_target_is_attached(Pointer target);
     int vigem_target_x360_get_user_index(Pointer vigem, Pointer target, IntByReference index);
     int vigem_target_x360_register_notification(Pointer vigem, Pointer target, Callback notification, Pointer userData);
     void vigem_target_x360_unregister_notification(Pointer target);
+    int vigem_target_ds4_register_notification(Pointer vigem, Pointer target, Callback notification, Pointer userData);
+    void vigem_target_ds4_unregister_notification(Pointer target);
     
     interface Callback extends StdCallLibrary.StdCallCallback {
         void invoke(Pointer target, Pointer client, int largeMotor, int smallMotor, int ledNumber, Pointer userData);
